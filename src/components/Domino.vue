@@ -5,14 +5,15 @@
             'domino--vertical':isMule || vertical
         }"
     >
-      <img 
-        class="domino-img" 
-        :src="`/${imageFilePath}.svg`" 
-        alt=""
-        :class="{ 
-            'domino-img--inversed':isInversed && !vertical,
-            'domino-img--vertical':isMule || vertical
-            } "
+        <div v-if="isHighlighted" class="domino domino-highlight" :class="{ 'domino--vertical':isMule || vertical}" />
+        <img 
+            class="domino-img" 
+            :src="`/${imageFilePath}.svg`" 
+            alt=""
+            :class="{ 
+                'domino-img--inversed':isInversed && !vertical,
+                'domino-img--vertical':isMule || vertical
+                } "
         >
   </div>
 </template>
@@ -25,6 +26,10 @@ export default {
             required:true
         },
         vertical: {
+            type: Boolean,
+            default: () => false
+        },
+        isHighlighted : {
             type: Boolean,
             default: () => false
         }
@@ -58,6 +63,16 @@ export default {
     justify-content: center;
     align-items: center;
     margin:20px 0px;
+}
+.domino-highlight{
+    position: absolute;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    z-index: 3;
+    opacity: 0.5;
+    background-color: green;
 }
 .domino--vertical{
     width:var(--dominoH);

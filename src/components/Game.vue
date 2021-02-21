@@ -5,6 +5,7 @@
         v-for="(tile,idx) in tilesPlayed"
         :key="idx"
         :tile="tile"
+        :isHighlighted="idx===27"
       />
     </div>
   </div>
