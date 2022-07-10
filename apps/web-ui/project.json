@@ -1,0 +1,51 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/web-ui/src",
+  "targets": {
+    "build": {
+      "executor": "@nx-plus/nuxt:browser",
+      "options": {
+        "buildDir": "dist/apps/web-ui"
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx-plus/nuxt:server",
+      "options": {
+        "browserTarget": "web-ui:build",
+        "dev": true
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "web-ui:build:production",
+          "dev": false
+        }
+      }
+    },
+    "static": {
+      "executor": "@nx-plus/nuxt:static",
+      "options": {
+        "browserTarget": "web-ui:build:production"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/web-ui/**/*.{ts,tsx,vue}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/web-ui"],
+      "options": {
+        "jestConfig": "apps/web-ui/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
