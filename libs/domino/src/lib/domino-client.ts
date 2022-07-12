@@ -3,7 +3,7 @@ import { Client } from 'boardgame.io/client';
 import { SocketIO } from 'boardgame.io/multiplayer';
 import { DominoGame } from './domino-game';
 
-export default class DominoesClient {
+export class DominoClient {
   client: any;
   start(playerID: any, matchID: any, credentials: any) {
     this.client = Client({
