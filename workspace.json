@@ -3,6 +3,7 @@
   "version": 2,
   "projects": {
     "domino": "libs/domino",
+    "game-server": "apps/game-server",
     "web-ui": "apps/web-ui",
     "web-ui-e2e": "apps/web-ui-e2e"
   }
