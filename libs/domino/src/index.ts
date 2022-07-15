@@ -1,1 +1,1 @@
-export * from './lib/domino';
+export * from './lib/domino-client';
