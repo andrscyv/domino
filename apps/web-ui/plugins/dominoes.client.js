@@ -1,5 +1,5 @@
-import DominoesClient from '../game/DominoesClient'
+import { DominoClient } from '@domino/domino'
 
-export default ({ app }, inject) => {
-  inject('game', new DominoesClient())
+export default ({ _app }, inject) => {
+  inject('game', new DominoClient())
 }
