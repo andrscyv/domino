@@ -1,6 +1,8 @@
 import { Game } from 'boardgame.io';
 import { INVALID_MOVE } from 'boardgame.io/core';
 import {
+  buildTiles,
+  dealTiles,
   getNextPlayer,
   getPlayerWithNoTiles,
   getSuitsAtEnds,
@@ -10,32 +12,32 @@ import {
 } from './domino-lib';
 
 export const DominoGame: Game = {
-  setup: () => {
-    // const tiles = buildTiles()
+  setup: (ctx) => {
+    const tiles = buildTiles();
     return {
-      // tilesByPlayer: dealTiles(ctx.random.Shuffle(tiles)),
-      tilesByPlayer: [
-        [
-          [0, 0], //, [6, 6]
-        ],
-        [
-          [1, 1],
-          [2, 1],
-          [3, 1],
-        ],
-        [
-          [1, 4],
-          [2, 4],
-          [3, 6],
-        ],
-        [
-          [1, 5],
-          [2, 5],
-          [3, 5],
-        ],
-      ],
-      tilesPlayed: [[0, 6]],
-      // tilesPlayed: []
+      tilesByPlayer: dealTiles(ctx.random?.Shuffle(tiles) || tiles),
+      // tilesByPlayer: [
+      //   [
+      //     [0, 0], //, [6, 6]
+      //   ],
+      //   [
+      //     [1, 1],
+      //     [2, 1],
+      //     [3, 1],
+      //   ],
+      //   [
+      //     [1, 4],
+      //     [2, 4],
+      //     [3, 6],
+      //   ],
+      //   [
+      //     [1, 5],
+      //     [2, 5],
+      //     [3, 5],
+      //   ],
+      // ],
+      // tilesPlayed: [[0, 6]],
+      tilesPlayed: [],
     };
   },
   moves: {
