@@ -17,15 +17,6 @@
           </li>
         </ol>
       </p>
-      <p ref="container" class=" text-center">
-        {{ $t('link_message') }}  {{ matchUrl }}
-        <input
-          type="button"
-          :value="$t('clipboard')"
-          style="margin:20px"
-          @click="copy"
-        >
-      </p>
       <slot name="modal-footer" />
       <template #modal-footer>
         <br>
@@ -35,26 +26,17 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex';
 export default {
   computed: {
     ...mapGetters(['matchUrl']),
-    ...mapState(['playerId', 'currentPlayerId'])
+    ...mapState(['playerId', 'currentPlayerId']),
   },
-  methods: {
-    copy () {
-      const container = this.$refs.container
-      this.$copyText(this.matchUrl, container)
-      alert('Link copied!')
-    }
-  }
-
-}
+};
 </script>
 
 <style scoped>
 li {
-    margin: 30px 0
+  margin: 30px 0;
 }
-
 </style>

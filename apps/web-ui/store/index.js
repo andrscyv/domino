@@ -57,7 +57,8 @@ export const state = () => ({
     // }
   ],
   selectedTile: null,
-  numTilesByPlayer: [0, 0, 0, 0]
+  numTilesByPlayer: [0, 0, 0, 0],
+  matchData: null
 })
 
 export const mutations = {
@@ -108,12 +109,21 @@ export const mutations = {
     this.$game.client.matchData.forEach((player) => {
       if (player.name) { state.playerNames.splice(player.id, 1, player.name) }
     })
-  }
+  },
+  setMatchData(state, matchData) {
+    state.matchData = matchData
+  },
 }
 
 export const getters = {
   matchUrl (state) {
     return `${state.baseUrl}/?matchId=${state.matchId}`
+  },
+  playersInLobby(state){
+    return (state.matchData?.players.filter(player => player.name) || [])
+  },
+  playerHasJoinedGame(state) {
+    return !!state.playerId || state.playerId === 0
   }
 }
 
@@ -128,18 +138,33 @@ export const actions = {
     })
     commit('setSelectedTile', null)
   },
-  async createMatch ({ commit, state }, { numPlayers }) {
+  async createMatch ({ commit }, { numPlayers }) {
     const { matchID } = await lobbyClient.createMatch('default', { numPlayers })
     commit('setMatchId', matchID)
   },
   async joinMatch ({ commit, state }, { playerID, playerName }) {
-    const { playerCredentials } = await lobbyClient.joinMatch('default', state.matchId, {
-      playerID,
-      playerName
-    })
+    let playerCredentials = null;
+    try{
+      const lobbyResponse = await lobbyClient.joinMatch('default', state.matchId, {
+       playerID,
+       playerName
+      })
+      playerCredentials = lobbyResponse.playerCredentials
+    } catch (e) {
+      if (e.message.includes('409')) {
+        // if tried to join with another player's id , try other id of same team
+        playerID ='' + (parseInt(playerID) + 2 % 4)
+        const lobbyResponse = await lobbyClient.joinMatch('default', state.matchId, {
+          playerID,
+          playerName
+        })
+        playerCredentials = lobbyResponse.playerCredentials 
+      }
+    }
 
     commit('setPlayerCredentials', playerCredentials)
     commit('setPlayerId', playerID)
+    commit('setPlayerName', playerName)
   },
   async setNextMatchId ({ commit, state }) {
     const { nextMatchID } = await lobbyClient.playAgain('default', state.matchId, {
@@ -147,6 +172,30 @@ export const actions = {
       credentials: state.playerCredentials
     })
     commit('setMatchId', nextMatchID)
+  },
+  async getMatchData({ commit, state}) {
+    if (state.matchId) {
+      const matchData = await lobbyClient.getMatch('default', state.matchId)
+      commit('setMatchData', matchData)
+    }
+  },
+  async clearMatchData({commit, state}) {
+    try {
+      await lobbyClient.leaveMatch('default', state.matchId, {
+       playerID: state.playerId,
+       credentials: state.playerCredentials
+      })
+    } catch (error) {
+    }
+    window.localStorage.removeItem('app_playerName')
+    window.localStorage.removeItem('app_playerId')
+    window.localStorage.removeItem('app_matchId')
+    window.localStorage.removeItem('app_playerCredentials')
+    commit('setPlayerCredentials', '')
+    commit('setPlayerId', '')
+    commit('setPlayerName', '')
+    commit('setMatchId', '')
+    commit('setMatchData', null)
   }
 
 }

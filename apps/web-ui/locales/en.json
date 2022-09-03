@@ -11,13 +11,19 @@
     "instructions": "Instructions",
     "start": "Start game",
     "choose": "Choose who plays the first tile.",
-    "seat": "Seat:",
+    "team": "Team:",
+    "team_r": "Red",
+    "team_b": "Blue",
     "name": "Name:",
     "start_message": "Start the game!",
     "again": "Play again!",
     "game_over": "Game over!",
-    "clipboard": "Copy to clipboard",
+    "clipboard": "Copy",
     "join": "Join game",
-    "new": "New game",
-    "lang": "Lang"
+    "new": "Create new game",
+    "start_game_btn": "Start game!",
+    "lang": "Lang",
+    "team_is_full": "Team is full",
+    "players": "Players",
+    "waiting_for_players": "Wait for remaining players to join , or ..."
 }
