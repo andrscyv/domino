@@ -11,13 +11,19 @@
     "instructions": "Instrucciones",
     "start": "Empezar partida",
     "choose": "Selecciona quién va a jugar la primera ficha.",
-    "seat": "Lugar:",
+    "team": "Equipo:",
+    "team_r": "Rojo",
+    "team_b": "Azul",
     "name": "Nombre:",
     "start_message": "¡Comienza el juego!",
     "again": "Nueva partida",
     "game_over": "¡Partida terminada!",
-    "clipboard": "Copiar a portapapeles",
+    "clipboard": "Copiar",
     "join": "Unirse al juego",
-    "new": "Juego nuevo",
-    "lang": "Idioma"
+    "new": "Crear nueva partida",
+    "start_game_btn": "Empezar partida!",
+    "lang": "Idioma",
+    "team_is_full": "El equipo seleccionado está lleno. Selecciona otro equipo.",
+    "players": "Jugadores",
+    "waiting_for_players": "Espera a los demás jugadores, o ..."
 }
