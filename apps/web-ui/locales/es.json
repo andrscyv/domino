@@ -1,7 +1,7 @@
 {
     "welcome": "¡Bienvenido!",
     "host_message": "Eres el anfitrión del juego. Haz click en \"Empezar partida\" en el menú superior para elegir quién juega la primera ficha y comenzar el juego.",
-    "player_message": "Espera a que el anfitrión seleccione quién juega la primera ficha y comience el juego.",
+    "player_message": "Decidan entre los participantes quién inicia el juego. Cualquiera puede tirar la primer ficha.",
     "inst_1": "Haz click en una de tus fichas. Las posiciones en las que puedes jugar se resaltarán en verde. Haz click en el cuadrado verde para tirar la ficha.",
     "inst_2": "Reorganiza tus fichas de dominó arrastrándolas horizontalmente.",
     "link_message": "Otras personas pueden unirse con este enlace:",

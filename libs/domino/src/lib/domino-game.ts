@@ -1,5 +1,5 @@
 import { Game } from 'boardgame.io';
-import { INVALID_MOVE } from 'boardgame.io/core';
+import { INVALID_MOVE, Stage } from 'boardgame.io/core';
 import {
   buildTiles,
   dealTiles,
@@ -12,6 +12,9 @@ import {
 } from './domino-lib';
 
 export const DominoGame: Game = {
+  turn: {
+    activePlayers: { all: Stage.NULL, maxMoves: 1 },
+  },
   setup: (ctx) => {
     const tiles = buildTiles();
     return {
@@ -43,15 +46,30 @@ export const DominoGame: Game = {
   moves: {
     playTile: (G, ctx, move) => {
       const { tilesPlayed } = G;
-      const { currentPlayer } = ctx;
+      const { currentPlayer, playerID } = ctx;
       const { tile } = move;
+
+      // We allow all players to make moves in the turn's config
+      // so they can agree amongst themselves who plays the first tile.
+      // Because of this, we have to check the players turn after the
+      // first move
+      const isNotFirstMove = (tilesPlayed || []).length !== 0;
+      const isNotPlayersTurn = currentPlayer !== playerID;
+      if (!playerID) {
+        console.error('Falsy playerID');
+        return INVALID_MOVE;
+      }
+      if (isNotFirstMove && isNotPlayersTurn) {
+        return INVALID_MOVE;
+      }
+
       const suitsAtEnds = getSuitsAtEnds(tilesPlayed);
 
       if (tileIsPlayable(tile, suitsAtEnds)) {
-        const nextG = nextState(G, { ...move, player: ctx.currentPlayer });
+        const nextG = nextState(G, { ...move, player: playerID });
         const nextSuitsAtEnds = getSuitsAtEnds(nextG.tilesPlayed);
         const nextPlayer = getNextPlayer(
-          +currentPlayer,
+          +playerID,
           nextG.tilesByPlayer,
           nextSuitsAtEnds
         );
@@ -76,7 +94,12 @@ export const DominoGame: Game = {
   },
   endIf: (G, ctx) => {
     const { tilesByPlayer, tilesPlayed } = G;
-    const { currentPlayer } = ctx;
+    const { playerID } = ctx;
+
+    if (!playerID) {
+      console.error('Falsy playerID');
+      return;
+    }
 
     if (tilesPlayed.length === 0) {
       return;
@@ -88,11 +111,7 @@ export const DominoGame: Game = {
       return { winner };
     }
 
-    const nextPlayer = getNextPlayer(
-      +currentPlayer,
-      tilesByPlayer,
-      suitsAtEnds
-    );
+    const nextPlayer = getNextPlayer(+playerID, tilesByPlayer, suitsAtEnds);
 
     if (nextPlayer < 0) {
       const teamWithFewerPoints = getTeamWithFewerPoints(tilesByPlayer);

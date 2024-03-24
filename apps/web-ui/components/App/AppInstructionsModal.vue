@@ -3,10 +3,7 @@
     <b-modal id="modal-instructions" :title="$t('welcome')" style="color:black" busy>
       <p class="my-4">
         <ol>
-          <li v-if="playerId === currentPlayerId">
-            {{ $t('host_message') }}
-          </li>
-          <li v-else>
+          <li>
             {{ $t('player_message') }}
           </li>
           <li>

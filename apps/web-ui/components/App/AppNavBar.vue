@@ -6,13 +6,7 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item @click="showModal('modal-instructions')">
-            {{ $t('invite') }}
-          </b-nav-item>
-          <b-nav-item @click="showModal('modal-instructions')">
             {{ $t('instructions') }}
-          </b-nav-item>
-          <b-nav-item href="#" :disabled="playerId !== currentPlayerId" @click="showModal('modal-start-game')">
-            {{ $t('start') }}
           </b-nav-item>
           <b-nav-item-dropdown :text="$t('lang')">
             <b-dropdown-item
