@@ -1,8 +1,8 @@
 {
     "welcome": "Welcome!",
     "host_message": "You are the game host. Click on \"Start game\" at the top menu to choose who plays the first tile and begin the game.",
-    "player_message": "Wait for the game host to choose who plays the first tile and start the game.",
-    "inst_1": "Click one of your dominoes. The positions where you can play will be highlighted in green. Click the green square to play a domino.",
+    "player_message": "Decide amongs the participants who plays the first tile. Anyone can start.",
+    "inst_1": "Click one of your dominoes to select it. The positions where you can play will be highlighted in green. Click the green square to position the selected domino on that side.",
     "inst_2": "Rearrange your dominoes by draggin them horizontally.",
     "link_message": "Other players can join with this link:",
     "winners": "The winners are",
