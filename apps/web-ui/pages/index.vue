@@ -79,10 +79,11 @@ export default {
       },
     },
   },
-  mounted() {
+  async mounted() {
     const matchId = this.$route.query.matchId;
     this.playerName = this.$store.state.playerName;
     if (matchId) {
+      await this.$store.dispatch('clearMatchData');
       this.setMatchId(matchId);
     }
     if (this.$game.client) {
