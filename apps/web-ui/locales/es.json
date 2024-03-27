@@ -25,5 +25,6 @@
     "lang": "Idioma",
     "team_is_full": "El equipo seleccionado está lleno. Selecciona otro equipo.",
     "players": "Jugadores",
-    "waiting_for_players": "Espera a los demás jugadores, o ..."
+    "waiting_for_players": "Espera a los demás jugadores, o ...",
+    "start_new_game_btn": "Iniciar nueva partida"
 }

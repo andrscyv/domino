@@ -25,5 +25,6 @@
     "lang": "Lang",
     "team_is_full": "Team is full",
     "players": "Players",
-    "waiting_for_players": "Wait for remaining players to join , or ..."
+    "waiting_for_players": "Wait for remaining players to join , or ...",
+    "start_new_game_btn": "New game"
 }

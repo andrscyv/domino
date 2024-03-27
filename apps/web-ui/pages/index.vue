@@ -100,7 +100,7 @@ export default {
     ...mapMutations(['setPlayerName', 'setMatchId']),
     async newGame() {
       if (this.playerHasJoinedGame) {
-        this.$store.dispatch('clearMatchData');
+        await this.$store.dispatch('clearMatchData');
         try {
           await this.$router.replace('/');
         } catch (error) {

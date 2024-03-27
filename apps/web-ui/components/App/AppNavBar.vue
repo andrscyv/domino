@@ -5,6 +5,9 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
+          <b-nav-item @click="startNewGame">
+            {{ $t('start_new_game_btn') }}
+          </b-nav-item>
           <b-nav-item @click="showModal('modal-instructions')">
             {{ $t('instructions') }}
           </b-nav-item>
@@ -40,6 +43,16 @@ export default {
     },
     toggleModal () {
       this.$root.$emit('bv::toggle::modal', 'modal-1', '#btnToggle')
+    },
+    async startNewGame() {
+        await this.$store.dispatch('clearMatchData');
+        try {
+          await this.$router.replace('/');
+        } catch (error) {
+          if (error.name !== 'NavigationDuplicated') {
+            throw error;
+          }
+        }
     }
   }
 }
